@@ -47,8 +47,6 @@ Route::get('/products', [frontController::class, 'index'])->name('products.index
 
 Route::post('/products/filter', [frontController::class, 'filterProducts'])->name('products.filter');
 
-Route::get('/products/filter',[frontController::class, 'filterProducts'])->name('products.filter');
-
 Route::middleware(['custom.auth'])->group(function(){
 
 	
@@ -118,6 +116,8 @@ Route::middleware(['custom.auth'])->group(function(){
 	//Order Notification Route
 
 	Route::get('/admin/pending-orders-count',[AdminController::class,'getPendingOrdersCount'])->name('admin.orders.index');
+
+	Route::get('/admin/pending-orders',[AdminController::class,'getPendingOrders'])->name('admin.showOrder');
 	
 	//Logout Route
 	Route::get('admin/logout', function(){

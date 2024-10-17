@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin;
 use App\Models\Order;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -22,7 +23,23 @@ class AdminController extends Controller
       return response()->json(['pendingOrdersCount'=>$pendingOrdersCount]);
     }
    
-    /*public function updatePassword()
+
+    public function getPendingOrders()
+  {
+    // Get all pending orders
+    $pendingOrders = Order::where('status', 'pending')->with('product')->paginate(10);
+
+    // Return a view with the pending orders
+    return view('admin.showOrder', compact('pendingOrders'));
+  }
+
+   
+   
+   
+   
+   
+   
+      /*public function updatePassword()
     {
         $r = Admin::find(1);
         $r->password = Hash::make('12345678');

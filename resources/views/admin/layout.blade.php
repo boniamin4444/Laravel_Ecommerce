@@ -78,7 +78,7 @@
                         </li>
 
                         <li>
-                            <a href="{{ route('admin.orders.index')}}">
+                            <a href="{{ route('admin.showOrder')}}">
                                <i class="fa fa-gift" aria-hidden="true"></i>Orders<sup><span class="badge bg-warning" id="pending-orders-count">New0</span></sup></a>
                         </li>
                     </ul>
