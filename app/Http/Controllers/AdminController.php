@@ -27,7 +27,7 @@ class AdminController extends Controller
     public function getPendingOrders()
   {
     // Get all pending orders
-    $pendingOrders = Order::where('status', 'pending')->with('product')->paginate(10);
+    $pendingOrders = Order::where('status', 'pending')->paginate(10);
 
     // Return a view with the pending orders
     return view('admin.showOrder', compact('pendingOrders'));

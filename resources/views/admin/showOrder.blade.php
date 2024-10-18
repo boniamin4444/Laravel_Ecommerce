@@ -25,7 +25,8 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Product id</th>
+                            <th>User Name</th>
+                            <th>Product Name</th>
                             <th>Price</th>
                             <th>quantity</th>
                             <th>Actions</th>
@@ -34,8 +35,9 @@
                     <tbody>
                         @foreach ($pendingOrders as $order)
                             <tr>
-                                <td>{{ $order->id }}</td>
-                                <td>{{ $order->product_id }}</td>
+                                <td>{{ $order->order_id }}</td>
+                                <td>{{ $order->user->name }}</td>
+                                <td>{{ $order->product->product_name }}</td>
                                 <td>${{ number_format($order->total_discounted_price, 2) }}</td>
                                 <td>{{ $order->quantity}}</td>
 
