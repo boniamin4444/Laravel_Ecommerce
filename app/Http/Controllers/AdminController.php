@@ -33,6 +33,26 @@ class AdminController extends Controller
     return view('admin.showOrder', compact('pendingOrders'));
   }
 
+  public function statusUpdate(Request $request, $order_id)
+{
+    // Find the order by its id
+    $order = Order::find($order_id);
+
+    // Check if the order exists
+    if ($order) {
+        // Update the status of the order from the request input
+        $order->status = $request->input('status');
+        $order->save(); // Save the updated order
+
+        // Redirect back to the order page with a success message
+        return redirect()->route('admin.showOrder', ['order' => $order_id])
+                         ->with('success', 'Status updated successfully');
+    } else {
+        // Return with an error message if order not found
+        return redirect()->back()->with('error', 'Order not found');
+    }
+}
+
    
    
    

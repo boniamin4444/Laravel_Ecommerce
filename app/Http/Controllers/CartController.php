@@ -111,6 +111,7 @@ class CartController extends Controller
         $discount = ($subtotal * $coupon->value) / 100;
 
         session()->put('discount', $discount);
+        session()->put('coupon_code',$coupon->coupon_code);
 
         return back()->with('success','Coupon applied successfully');
     }
@@ -126,9 +127,8 @@ class CartController extends Controller
         }       
 
 
-        $couponCode = $request->input('coupon_code');
-        $coupon = null;
-        $discount = 0;
+        $couponCode = session('coupon_code', null);
+        $discount = session('discount', 0);
 
         foreach($cart as $cartItem)
         {
@@ -143,16 +143,16 @@ class CartController extends Controller
             {
             $coupon = Coupon::where('coupon_code',$couponCode)->where('status','active')->first();
 
-            if($coupon)
-            {
+              if($coupon)
+              {
                 $discount = $coupon->value / 100;
-            }
+              }
 
 
-            else
-            {
+              else
+              {
                 return redirect()->back()->with('error','Invalid or expired coupon code.');
-            }
+              }
             }
 
                 $orderAmount = $product->price * $cartItem['quantity'];
@@ -168,16 +168,22 @@ class CartController extends Controller
                 'total_discounted_price' =>$discountedPrice,
                 'quantity'=>$cartItem['quantity'],
             ]);
+            
+
+            $product->stock -= $cartItem['quantity'];
+            $product->save();
+
+            //for admin notifications
 
             $admin = Admin::where('role','admin')->first();
             $admin->notify(new pendingOrderNotification($order));
 
-            $product->stock -= $cartItem['quantity'];
-            $product->save();
+            
         }
 
         session()->forget('cart');
         session()->forget('discount');
+        session()->forget('coupon_code');
 
         return back()->with('success','Order Placed Successfully');
     }

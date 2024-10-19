@@ -119,6 +119,8 @@ Route::middleware(['custom.auth'])->group(function(){
 
 	Route::get('/admin/pending-orders',[AdminController::class,'getPendingOrders'])->name('admin.showOrder');
 	
+	Route::post('/admin/statusUpdate/change/{order_id}',[AdminController::class,'statusUpdate'])->name('admin.showOrder.status.change');
+	
 	//Logout Route
 	Route::get('admin/logout', function(){
 

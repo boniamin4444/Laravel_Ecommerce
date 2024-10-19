@@ -19,56 +19,56 @@
                     <button type="button" class="btn btn-success">Back</button>
                 </a>
             </div>
-
             
-                <table class="table table-bordered table-striped">
-                    <thead>
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>User Name</th>
+                        <th>Product Name</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($pendingOrders as $order)
                         <tr>
-                            <th>ID</th>
-                            <th>User Name</th>
-                            <th>Product Name</th>
-                            <th>Price</th>
-                            <th>quantity</th>
-                            <th>Actions</th>
+                            <td>{{ $order->order_id }}</td>
+                            <td>{{ $order->user->name }}</td>
+                            <td>{{ $order->product->product_name }}</td>
+                            <td>${{ number_format($order->total_discounted_price, 2) }}</td>
+                            <td>{{ $order->quantity }}</td>
+
+                            <td>
+                                <form action="{{ route('admin.showOrder.status.change', ['order_id' => $order->order_id]) }}" method="POST" style="display:inline;">
+                                    @csrf
+                                    
+                                    <div class="form-group">
+                                        <label for="order">Status:</label>
+                                        <select name="status" class="form-control">
+                                            <option value="{{ $order->order_id }}" selected>{{ ucfirst($order->status) }}</option>
+                                            <option value="completed">Completed</option>
+                                            <option value="canceled">Canceled</option>
+                                            <option value="delivered">Delivered</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <button type="submit" class="btn btn-primary">Update</button>
+                                    </div>
+                                </form>
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($pendingOrders as $order)
-                            <tr>
-                                <td>{{ $order->order_id }}</td>
-                                <td>{{ $order->user->name }}</td>
-                                <td>{{ $order->product->product_name }}</td>
-                                <td>${{ number_format($order->total_discounted_price, 2) }}</td>
-                                <td>{{ $order->quantity}}</td>
+                    @endforeach
+                </tbody>
+            </table>
 
-                                <td>
-                                    <form action="#" method="POST" style="display:inline;">
-                                        @csrf
-                                        @method('post')
-                                        <div class="form-group">
-                                            <label for="order">Status:</label>
-                                            <select name="order_id" class="form-control">
-                                                <option value="$order->id">{{ $order->status }}</option>
-                                                <option value="completed ">completed</option>
-                                                <option value="canceled">canceled</option>
-                                                <option value="delivered">delivered</option>
-                                            </select>
-                                        </div>
-                                        <div>
-                                            <button class="btn btn-primary">Update</button>
-                                        </div>
-                                    </form>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-
-                <!-- Pagination links -->
-                <div class="d-flex justify-content-center">
-                    {{ $pendingOrders->links() }}
-                </div>
+            <!-- Pagination links -->
+            <div class="d-flex justify-content-center">
+                {{ $pendingOrders->links() }}
+            </div>
         </div>
     </div>
 </div>
+
 @endsection
