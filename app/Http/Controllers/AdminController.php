@@ -6,6 +6,7 @@ use App\Models\Admin;
 use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Notifications\OrderStatusChangeNotification;
 use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
@@ -44,6 +45,15 @@ class AdminController extends Controller
         $order->status = $request->input('status');
         $order->save(); // Save the updated order
 
+        if ($order->status === 'completed') {
+          $product = Product::find($order->product_id);
+          $product->stock -= $order->quantity;
+          $product->save();
+           }
+
+          $user = User::all();
+          $user->notify(new OrderStatusChangeNotification($order));
+
         // Redirect back to the order page with a success message
         return redirect()->route('admin.showOrder', ['order' => $order_id])
                          ->with('success', 'Status updated successfully');
@@ -51,6 +61,7 @@ class AdminController extends Controller
         // Return with an error message if order not found
         return redirect()->back()->with('error', 'Order not found');
     }
+
 }
 
    

@@ -170,8 +170,12 @@ class CartController extends Controller
             ]);
             
 
-            $product->stock -= $cartItem['quantity'];
-            $product->save();
+            /* if ($order->status === 'completed') { */
+            /*     $product->stock -= $cartItem['quantity']; */
+            /*     $product->save(); */
+            /* } */
+    
+
 
             //for admin notifications
 
