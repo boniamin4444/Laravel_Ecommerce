@@ -1,13 +1,19 @@
 <?php
 
+
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Admin;
 use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail; // Add this line
 use App\Notifications\OrderStatusChangeNotification;
 use Illuminate\Support\Facades\Hash;
+use App\Mail\StatusChangeMail;
+
+
 
 class AdminController extends Controller
 {
@@ -51,8 +57,11 @@ class AdminController extends Controller
           $product->save();
            }
 
-          $user = User::all();
-          $user->notify(new OrderStatusChangeNotification($order));
+          if($order->status === 'completed')
+          {
+             $user = User::find($order->user_id);
+             Mail::to($user->email)->send(new StatusChangeMail($order));
+          }
 
         // Redirect back to the order page with a success message
         return redirect()->route('admin.showOrder', ['order' => $order_id])
