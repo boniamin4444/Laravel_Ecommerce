@@ -81,6 +81,23 @@
                             <a href="{{ route('admin.showOrder')}}">
                                <i class="fa fa-gift" aria-hidden="true"></i>Orders<sup><span class="badge bg-warning" id="pending-orders-count">New0</span></sup></a>
                         </li>
+                        <li class="active has-sub">
+                            <a class="js-arrow" href="#">
+                                <i class="fas fa-tachometer-alt"></i>Dashboard</a>
+                            <ul class="list-unstyled navbar__sub-list js-sub-list">
+                                <li>
+                                    <a href="#">Dashboard 1</a>
+                                </li>
+                                <li>
+                                    <a href="#">Dashboard 2</a>
+                                </li>
+                                <li>
+                                    <a href="{{url('admin/showspplier')}}">Suppliers</a>
+                                </li>
+                               
+                            
+                            </ul>
+                        </li>
                     </ul>
                 </nav>
             </div>

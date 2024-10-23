@@ -9,6 +9,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CouponController;
+use App\Http\Controllers\SupplierController;
 use App\Models\Product;
 
 /*
@@ -91,6 +92,17 @@ Route::middleware(['custom.auth'])->group(function(){
 	Route::get('/products/{id}/edit',[ProductController::class,'edit'])->name('products.edit');
 
 	Route::put('/products/{id}',[ProductController::class,'update'])->name('products.update');	
+
+
+
+	Route::get('admin/showspplier',[SupplierController::class, 'index']);
+Route::get('admin/supplier/manage_supplier',[SupplierController::class, 'manage_supplier']);
+Route::get('admin/supplier/manage_supplier/{id}',[SupplierController::class, 'manage_supplier']);
+Route::post('admin/supplier/manage_supplier_process',[SupplierController::class, 'manage_supplier_process'])
+->name('supplier.manage_supplier_process');
+Route::get('admin/supplier/delete/{id}', [SupplierController::class, 'delete']);
+
+
 	});
 
 	//Coupon Routes
