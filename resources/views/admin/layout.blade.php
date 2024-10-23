@@ -86,13 +86,17 @@
                                 <i class="fas fa-tachometer-alt"></i>Dashboard</a>
                             <ul class="list-unstyled navbar__sub-list js-sub-list">
                                 <li>
-                                    <a href="#">Dashboard 1</a>
+                                    <a href="{{ url('/inventory/stock')}}">Stock</a>
                                 </li>
-                                <li>
-                                    <a href="#">Dashboard 2</a>
-                                </li>
+
+                               
+
                                 <li>
                                     <a href="{{url('admin/showspplier')}}">Suppliers</a>
+                                </li>
+
+                                <li>
+                                    <a href="{{route('sales.create')}}">Sales</a>
                                 </li>
                                
                             

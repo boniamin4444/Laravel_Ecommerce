@@ -86,6 +86,15 @@
                     <h5 class="card-title">{{ $product->product_name }}</h5>
                     <p class="card-text">{{ \Illuminate\Support\Str::limit($product->details, 100) }}</p>
                     <p><strong>Price:</strong> ${{ $product->price }}</p>
+
+                    @if($product->inventory && $product->inventory->calculated_vat > 0)
+                        <p class="card-text">
+                            VAT: ${{ $product->inventory->calculated_vat}}
+                        </p>
+                    @else
+                        <span class="badge badge-warning text-dark">VAT not applicable</span>
+                    @endif
+
                     <p><strong>Status:</strong>
                         <span class="badge {{ $product->status == 'active' ? 'badge-success' : 'badge-danger' }}">
                             {{ ucfirst($product->status) }}

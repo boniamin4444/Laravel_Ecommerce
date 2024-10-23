@@ -13,7 +13,7 @@ class frontController extends Controller
     public function index()
     {
         $categories = Category::all();
-        $products = Product::paginate(5); // Initially load all active products
+        $products = Product::with('inventory')->paginate(5); // Initially load all active products
 
         return view('welcome', compact('categories', 'products'));
     }
