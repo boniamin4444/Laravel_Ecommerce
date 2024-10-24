@@ -102,6 +102,10 @@
                             
                             </ul>
                         </li>
+                        <li>
+                             <a href="{{url('admin/orders/report')}}">
+                            <i class="fa fa-gift" aria-hidden="true"></i>Report</a>
+                      </li>
                     </ul>
                 </nav>
             </div>

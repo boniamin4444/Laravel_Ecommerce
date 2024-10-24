@@ -97,6 +97,9 @@ Route::middleware(['admin_auth'])->group(function() {
         session()->flash('error', 'Logout Successfully');
         return redirect('admin');
     });
+
+    Route::get('admin/orders/report', [AdminController::class, 'showReport'])->name('orders.report');
+    Route::post('admin/orders/report/fetch', [AdminController::class, 'fetchReport'])->name('orders.report.fetch');
 });
 
 // Product Notification Routes
