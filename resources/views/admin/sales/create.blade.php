@@ -54,7 +54,7 @@ document.getElementById('category').addEventListener('change', function() {
         .then(response => response.json())
         .then(data => {
             var productSelect = document.getElementById('product');
-            productSelect.innerHTML = '<option value="">Select Product</option>';
+            productSelect.innerHTML = '<option value="">Select Prooduct</option>';
             data.forEach(product => {
                 productSelect.innerHTML += `<option value="${product.id}">${product.name}</option>`;
             });
