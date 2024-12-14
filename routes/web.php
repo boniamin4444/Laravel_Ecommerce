@@ -22,6 +22,7 @@ Route::get('/', [FrontController::class, "index"]);
 Route::get('login', fn() => redirect('/products'))->name('login');
 Route::get('register', fn() => redirect('/products'))->name('register');
 
+
 // POST routes (handling form submission)
 Route::post('login', [AuthController::class, 'login'])->name('login.post');
 Route::post('register', [AuthController::class, 'register'])->name('register.post');
